@@ -35,7 +35,11 @@ def recognizePeople(data, imgPath):
     return names, len(boxes), len(names.keys())
        
 if __name__ == "__main__":
-    #os.mkdir(tmpDirLocal)
+    try:
+        rmtree(tmpDirLocal)
+    except:
+        pass
+    os.mkdir(tmpDirLocal)
     commandStartSystem = 'sshpass -p ' + '"' + raspiPass + '" ' + "ssh " + raspiUser + "@" + raspiIP + " python3.5 /home/pi/Assistentia/RaspberryPiCode/main.py"  
     commandGetImgs = 'sshpass -p ' + '"' + raspiPass + '" ' + "scp " + raspiUser + "@" + raspiIP + ":" + tmpDirRpi + "* " + tmpDirLocal   
     process = subprocess.Popen(commandStartSystem, shell=True, stdout=subprocess.PIPE)
